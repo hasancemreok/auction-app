@@ -1,18 +1,61 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useAuth} from '../context/AuthContext'
 
 function Login() {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginResult, setLoginResult] = useState('');
+  const [buttonState, setButtonState] = useState(false);
+
+  const {login} = useAuth();
+  const users = [
+    { username: "user", password: "pass", name: "Auction User", role: "regular" },
+    { username: "admin", password: "pass", name: "Admin", role: "admin" }
+  ]
+
+  const handleLogin = () => {
+    setLoginResult('');
+    setButtonState(true);
+
+    setTimeout(() => {
+      let foundUser = users.find(u => u.username === username && u.password === password);
+
+      if(foundUser) {
+        login({
+          isAuthenticated: true,
+          user: {
+            name: foundUser.name
+          }
+        });
+      } else {
+        setButtonState(false);
+        setLoginResult('error');
+        setUsername('')
+        setPassword('')
+      }
+    }, 300);
+  }
+
   return(
+    <>
     <div className="login-form-container">
       <div className="login-form">
         <label for="username">Username</label>
-        <input id="username" name="username" type="" placeholder="username" autoComplete="off" required/>
+        <input value={username} onInput={e => setUsername(e.target.value)} id="username" name="username" type="" placeholder="username" autoComplete="off" required/>
         <div className="spacer"/>
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" placeholder="password" autoComplete="off" required/>
+        <input value={password} onInput={e => setPassword(e.target.value)} id="password" name="password" type="password" placeholder="password" autoComplete="off" required/>
         <div className="spacer"/>
-        <button>Login</button>
+        <button disabled={buttonState} autoFocus className="block" onClick={handleLogin}>Login</button>
       </div>
     </div>
+    {
+      loginResult == "error"
+      ? <div className="login-result">Incorrect id or password</div>
+      : ''
+    }
+    </>
   );
 }
 
