@@ -8,7 +8,6 @@ import './app.scss';
 
 function AppBody () {
   const {state, isAuthenticated} = useAuth();
-  console.log(state);
   return isAuthenticated ? <Home /> : <Login /> 
 }
 

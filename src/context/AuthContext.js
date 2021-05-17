@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const AuthContext = React.createContext();
 
@@ -10,6 +10,15 @@ export function AuthProvider({children}) {
 
   const login = (newState) => setAuthState(newState);
   const logout = () => setAuthState({isAuthenticated: false, user: null});
+
+  useEffect(() => {
+    const userCookie = window.localStorage.getItem("authState");
+    if(userCookie) setAuthState(JSON.parse(userCookie));
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("authState", JSON.stringify(authState));
+  }, [authState])
 
   return(
     <AuthContext.Provider value={{authState, login, logout}}>
