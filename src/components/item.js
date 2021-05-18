@@ -28,7 +28,7 @@ function Item(props) {
               <span class="value">3</span>
             </div>
           </div>
-          <Link class="to-detail" to={'/item/' + props.data._id} className="small">Bid Now &rarr;</Link>
+          <Link className="to-detail" to={'/item/' + props.data._id}>Bid Now &rarr;</Link>
         </div>
       </div>
     </div>

@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom'
+import React from 'react';
 import { useAuth } from '../context/AuthContext'
-
-import ItemList from '../components/ItemList'
-
 import brandLogo from '../assets/auction.png'
 
 function MasterPage({history, children}) {
-  const {state, logout} = useAuth();
-
+  const auth = useAuth();
   const handleLogout = () => {
-    logout();
+    auth.logout();
     history.push('/')
   }
 
@@ -22,7 +17,7 @@ function MasterPage({history, children}) {
           AuctionApp
         </div>
         <div className="user">
-          <span>Welcome {state.user.name}</span>
+          <span>Welcome {auth.authState.user.name}</span>
           <button className="link" onClick={handleLogout}>Logout</button>
         </div>
       </div>

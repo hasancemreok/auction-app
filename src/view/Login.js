@@ -9,7 +9,7 @@ function Login({history}) {
   const [loginResult, setLoginResult] = useState('');
   const [buttonState, setButtonState] = useState(false);
 
-  const {login} = useAuth();
+  const auth = useAuth();
   const users = [
     { username: "user", password: "pass", name: "Auction User", role: "regular" },
     { username: "admin", password: "pass", name: "Admin", role: "admin" }
@@ -23,7 +23,7 @@ function Login({history}) {
       let foundUser = users.find(u => u.username === username && u.password === password);
 
       if(foundUser) {
-        login({
+        auth.login({
           isAuthenticated: true,
           user: {
             name: foundUser.name
