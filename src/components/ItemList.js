@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Item from './Item'
+import Progress from './Progress';
 
 function ItemDetail(props) {
 
@@ -31,7 +32,7 @@ function ItemDetail(props) {
     const newArray = [...data]
     setAuctionItems(newArray)
 
-    setTimeout(() => setIsLoading(false), 300);
+    setTimeout(() => setIsLoading(false), 1000);
   }
 
   return(
@@ -52,7 +53,7 @@ function ItemDetail(props) {
       <div class="items">
       {
         isLoading 
-        ? <p>Loading</p>
+        ? <Progress loadingText="Loading items" />
         : auctionItems.map((item, index) => <Item key={'item'+index} data={item} />)
       }
       </div>

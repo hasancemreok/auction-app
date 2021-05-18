@@ -371,12 +371,54 @@ button {
     height: auto;
 
     margin-bottom: 2rem;
+    animation: rotating 5s linear infinite;
   }
 
   p {
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: .5rem;
+  }
+}
+
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .progress {
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+  
+    width: auto;
+    height: 8rem;
+    
+    img {
+      width: 6rem; margin-bottom: 1rem;
+      animation: rotating 5s linear infinite;
+    }
+    span { font-size: 1rem; font-weight: 700; }
+  }
+}
+
+@keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
