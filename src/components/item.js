@@ -1,4 +1,5 @@
 import React from 'react';
+import  { Link } from 'react-router-dom'
 import dateParser from '../utils/dateParser'
 
 function Item(props) {
@@ -27,7 +28,7 @@ function Item(props) {
               <span class="value">3</span>
             </div>
           </div>
-          <button className="small">Bid Now &rarr;</button>
+          <Link class="to-detail" to={'/item/' + props.data._id} className="small">Bid Now &rarr;</Link>
         </div>
       </div>
     </div>

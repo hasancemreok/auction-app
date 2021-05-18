@@ -1,83 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext'
-
-import Item from '../components/item'
-
-import brandLogo from '../assets/auction.png'
+import React from 'react';
+import { withRouter } from 'react-router-dom'
+import MasterPage from '../components/Masterpage'
+import ItemList from '../components/ItemList'
 
 function Home() {
-  const {state, logout} = useAuth();
-  const [isLoading, setIsLoading] = useState(true);
-  const [auctionItems, setAuctionItems] = useState([]);
-  const [queryState, setQueryState] = useState({
-    search: "",
-    sortBy: "0",
-    sortType: "0"
-  });
-  
-  useEffect(() => {
-    getItems();
-  }, []);
-
-  useEffect(() => {
-    getItems();
-  }, [queryState]);
-
-  const handleLogout = () => {
-    logout();
-  }
-
-  const getItems = async () => {
-    const resp = await fetch("http://localhost:3001/items", {
-      method: 'POST',
-      cache: 'no-cache',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(queryState)
-    })
-    const data = await resp.json();
-
-    const newArray = [...data]
-    setAuctionItems(newArray)
-
-    setTimeout(() => setIsLoading(false), 300);
-  }
-
   return(
-    <div className="container">
-      <div className="app-header">
-        <div className="brand">
-          <img src={brandLogo} />
-          AuctionApp
-        </div>
-        <div className="user">
-          <span>Welcome {state.user.name}</span>
-          <button className="link" onClick={handleLogout}>Logout</button>
-        </div>
-      </div>
-      <div className="contentize">
-        <div class="filters">
-          <input type="search" className="search-input" placeholder="Search..." value={queryState.search}
-            onInput={e => setQueryState(prevState => ({...prevState, search: e.target.value }))} />
-          <select value={queryState.sortBy}  onChange={e => setQueryState(prevState => ({...prevState, sortBy: e.target.value })) }>
-            <option value="0" selected>Sort by date</option>
-            <option value="1">Sort by last bid</option>
-            <option value="2">Sort by starting price</option>
-          </select>
-          <select value={queryState.sortType} onChange={e => setQueryState(prevState => ({...prevState, sortType: e.target.value })) }>
-            <option value="0" selected>ascending</option>
-            <option value="1">descending</option>
-          </select>
-        </div>
-        <div class="items">
-        {
-          isLoading 
-          ? <p>Loading...</p>
-          : auctionItems.map((item, index) => <Item key={'item'+index} data={item} />)
-        }
-        </div>
-      </div>
-    </div>
+    <MasterPage>
+      <ItemList />
+    </MasterPage>
   );
 }
 
-export default Home;
+export default withRouter(Home);

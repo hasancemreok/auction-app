@@ -89,6 +89,7 @@ input, select {
   }
 }
 
+a[role="button"],
 button {
   width: auto;
   cursor: pointer;
@@ -96,7 +97,8 @@ button {
   background: none;
 
   font-size: 14px;
-  font-weight: 700;  
+  font-weight: 700;
+  text-decoration: none;
 
   &.block {
     @include button-base();
@@ -332,6 +334,21 @@ button {
             span.value { color: #26AE61;}
           }
         }
+      }
+
+      a.to-detail {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        
+        border-radius: .25rem;
+        padding: .25rem 1rem;
+        background-color: #000;
+
+        font-size: 14px;
+        font-weight: 700;
+        color: #FFF;
+        text-decoration: none;
       }
     }
   }

@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
+import { withRouter } from 'react-router-dom'
 import {useAuth} from '../context/AuthContext'
 
-function Login() {
+function Login({history}) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -28,6 +29,8 @@ function Login() {
             name: foundUser.name
           }
         });
+
+        history.push('/items')
       } else {
         setButtonState(false);
         setLoginResult('error');
@@ -59,4 +62,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default withRouter(Login);
