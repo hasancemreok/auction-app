@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import Progress from './Progress';
 import Bid from './Bid';
+import Item from './Item';
 import dateParser from '../utils/dateParser'
 import { useAuth } from '../context/AuthContext';
 import brandLogo from '../assets/auction.png'
@@ -129,37 +130,7 @@ function ItemDetail(props) {
         {
           isItemLoading || isBidsLoading
           ? <Progress loadingText="Item details loading" />
-          : <div className="item">
-            <div className="imgContainer large">
-              <img src={brandLogo} />
-            </div>
-            <div className="item-info">
-              <div class="texts">
-                <p class="item-caption">{item.caption}</p>
-                <span class="item-description">{item.description}</span>
-              </div>
-              <div class="item-actions">
-                <div class="item-countdown">
-                  <div class="countdown">
-                    <span class="label">AUCTION WILL END</span>
-                    <span class="value">{dateParser(item.auctionEndDate)}</span>
-                  </div>
-                  <div class="lastbid">
-                    <span class="label">LAST BID</span>
-                    <span class="value">${item.lastBid}</span>
-                  </div>
-                  <div class="increase">
-                    <span class="label">INCREASE</span>
-                    <span class="value">${item.pricePerBid}</span>
-                  </div>
-                  <div class="bids">
-                    <span class="label">BIDS</span>
-                    <span class="value">{bids.length}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          : <Item data={item} isLarge="large" bids={bids.length} />
         }
       </div>
       <div className="contentize">

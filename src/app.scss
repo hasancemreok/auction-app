@@ -1,19 +1,5 @@
-// utils & mixins
-
-@mixin box-shadow {
-  box-shadow: 0px 4px 8px -3px rgba(0, 0, 0, 0.06), 0px 10px 16px -10px rgba(0, 0, 0, 0.036);
-}
-
-@mixin container {
-  display: flex;
-
-  background-color: #FFF;
-  border-radius: .5rem;
-
-  padding: 1rem;
-
-  @include box-shadow()
-}
+@import "styles/mixin";
+@import "styles/input";
 
 // root
 
@@ -44,177 +30,6 @@ body {
   background-color: #F5F6FF;
 }
 
-// elements
-
-label {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-// text, search, select inputs
-input[type=text],
-input[type=password],
-input[type=search],
-select {
-  width: auto;
-  height: 44px;
-  padding: .5rem .75rem;
-  outline: none;
-
-  border: 1px solid #D0D0D0;
-  border-radius: 4px;
-
-  color: #000;
-  font-size: 14px;
-
-  &::placeholder {
-    color: #A0A0A0;
-  }
-
-  &:focus {
-    border-color: #007CF0;
-  }
-}
-
-/* checkbox input */
-input[type="checkbox"]:not(:checked),
-input[type="checkbox"]:checked {
-  position: absolute;
-  left: 0;
-  opacity: 0.01;
-}
-
-input[type="checkbox"]:not(:checked) + label,
-input[type="checkbox"]:checked + label {
-  position: relative;
-  padding-left: 1.5rem;
-  font-size: 14px;
-  line-height: 18px;
-  cursor: pointer;
-  user-select: none;
-  margin-bottom: 0;
-  color: #000;
-}
-
-input[type="checkbox"]:not(:checked) + label:before,
-input[type="checkbox"]:checked + label:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1.25em;
-  height: 1.25em;
-  border: 1px solid #aaa;
-  background: #FFF;
-  border-radius: .2em;
-  box-shadow: 0 0 0 rgba(203, 203, 237, .2);
-  -webkit-transition: all .275s;
-      transition: all .275s;
-}
-
-/* checked mark aspect */
-input[type="checkbox"]:not(:checked) + label:after,
-input[type="checkbox"]:checked + label:after {
-  content: '✓';
-  position: absolute;
-  top: .625em;
-  left: .15em;
-  font-size: 14px;
-  font-weight: 700;
-  color: #007CF0;
-  line-height: 0;
-  -webkit-transition: all .2s;
-      transition: all .2s;
-}
-
-input[type="checkbox"]:not(:checked) + label:after {
-  opacity: 0;
-  -webkit-transform: scale(0) rotate(45deg);
-      transform: scale(0) rotate(45deg);
-}
-
-input[type="checkbox"]:checked + label:after {
-  opacity: 1;
-  -webkit-transform: scale(1) rotate(0);
-      transform: scale(1) rotate(0);
-}
-
-/* Disabled checkbox */
-input[type="checkbox"]:disabled:not(:checked) + label:before,
-input[type="checkbox"]:disabled:checked + label:before {
-  box-shadow: none;
-  border-color: #bbb;
-  background-color: #e9e9e9;
-}
-
-input[type="checkbox"]:disabled:checked + label:after {
-  color: #777;
-}
-
-input[type="checkbox"]:disabled + label {
-  color: #aaa;
-}
-
-/* Accessibility */
-input[type="checkbox"]:checked:focus + label:before,
-input[type="checkbox"]:not(:checked):focus + label:before {
-  
-}
-
-@mixin button-base {
-  background: #007CF0;
-  border-radius: 4px;
-
-  color: #FFF;
-
-  &:hover {
-    background-color: rgb(31, 147, 255);
-  }
-
-  &:disabled {
-    background-color: #AAA;
-    color: #ccc;
-  }
-}
-
-a[role="button"],
-button {
-  width: auto;
-  cursor: pointer;
-  border: none;
-  background: none;
-
-  font-size: 14px;
-  font-weight: 700;
-  text-decoration: none;
-
-  &.block {
-    @include button-base();
-
-    height: 44px;
-    padding: 0 1rem;
-  }
-
-  &.small {
-    @include button-base();
-
-    height: 32px;
-    padding: 0 1rem;
-  }
-
-  &.primary-action {
-    color: #FFF;
-    background-color: #0070f3;
-    box-shadow: 0 4px 14px 0 rgba(0, 118, 255, .4);
-  }
-
-  &.link {
-    display: inline;
-    text-decoration: underline;
-    color: #007CF0;
-  }
-}
-
 // login screen
 
 .login-form-container {
@@ -235,8 +50,7 @@ button {
   width: 100%;
   height: 100%;
 
-  display: flex;
-  flex-direction: column;
+  @include flexbox(column);
 
   label { margin-bottom: .5rem;}
 }
@@ -261,8 +75,7 @@ button {
   margin: 0 auto;
   padding: 1rem 0;
 
-  display: flex;
-  flex-direction: column;
+  @include flexbox(column);
 }
 
 .app-header {
@@ -273,16 +86,12 @@ button {
   height: 4rem;
   margin-bottom: 1rem;
 
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  @include flexbox(row, center, $justifyContent: space-between);
 
   * { height: 100%; user-select: none; }
 
   .brand {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    @include flexbox(row, center);
 
     font-size: 1.25rem;
     font-weight: 700;
@@ -295,10 +104,7 @@ button {
   }
 
   .user {
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
-    align-items: flex-end;
+    @include flexbox(column, flex-end, space-between);
 
     span { background-color: transparent; }
     button { background-color: transparent; }
@@ -307,13 +113,12 @@ button {
 
 .contentize {
   @include container();
+  @include flexbox(column);
 
   width: 100%;
   min-height: 100%;
   height: auto;
   margin-bottom: 1rem;
-
-  flex-direction: column;
 
   p {
     font-weight: 700;
@@ -324,8 +129,7 @@ button {
 // auction items
 
 .filters {
-  display: flex;
-  flex-direction: row;
+  @include flexbox(row);
 
   *:not(:last-child) { margin-right: 1rem; }
 
@@ -344,117 +148,8 @@ button {
 .items {
   width: 100%;
   height: auto;
-  display: flex;
-  flex-direction: column;
-}
 
-
-.item-x {
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 1rem 0;
-
-  .wrapper {
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-  }
-
-  .item-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    .texts {
-      width: 100%;
-
-      .item-caption {
-        width: 100%;
-        font-size: 18px;
-        line-height: 1;
-        height: 18px;
-        font-weight: 700;
-
-        margin-bottom: 6px;
-      }
-
-      .item-description {
-        width: 100%;
-        color: #666;
-        font-size: 14px;
-        line-height: 18px;
-      }
-    }
-
-    .item-actions {
-      width: 100%;
-      height: 32px;
-
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      
-      .item-countdown {
-        display: flex;
-        flex-direction: row;
-
-        div {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          width: auto;
-          min-width: 15%;
-          height: 32px;
-          margin-right: 2.5rem;
-
-          span.label {
-            font-size: 10px;
-            letter-spacing: 0.05rem;
-            font-weight: 700;
-            color: #A5A6AF;
-          }
-
-          span.value {
-            font-weight: 700;
-            font-size: 14px;
-            color: #000000;
-
-            svg {
-              width: 16px;
-              height: 16px;
-              margin-right: .5rem;
-            }  
-          }
-
-          &.countdown {
-            min-width: 40%;
-          }
-
-          &.lastbid {
-            span.value { color: #26AE61;}
-          }
-        }
-      }
-
-      a.to-detail {
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
-        
-        border-radius: .25rem;
-        padding: .25rem 1rem;
-        background-color: #000;
-
-        font-size: 14px;
-        font-weight: 700;
-        color: #FFF;
-        text-decoration: none;
-      }
-    }
-  }
+  @include flexbox(column);
 }
 
 .item {
@@ -462,8 +157,7 @@ button {
   width: 100%;
   height: auto;
 
-  display: flex;
-  flex-direction: row;
+  @include flexbox(row);
 
   &:not(:last-child) {
     border-bottom: 1px solid #F0F0F0;
@@ -494,13 +188,10 @@ button {
     width: 100%;
     min-height: 100%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    @include flexbox(column, $justifyContent: space-around);
 
     .texts {
-      display: flex;
-      flex-direction: column;
+      @include flexbox(column);
       
       .item-caption {
         width: 100%;
@@ -524,18 +215,14 @@ button {
       width: 100%;
       height: 32px;
 
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      @include flexbox(row, $justifyContent: space-between);
       
       .item-countdown {
-        display: flex;
-        flex-direction: row;
+        @include flexbox(row);
 
         div {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+          @include flexbox(column, $justifyContent: space-between);
+
           width: auto;
           min-width: 15%;
           height: 32px;
@@ -571,9 +258,8 @@ button {
       }
 
       a.to-detail {
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
+
+        @include flexbox(row, center);
         
         border-radius: .25rem;
         padding: .25rem 1rem;
@@ -590,11 +276,8 @@ button {
 
 .action-container {
   @include container();
+  @include flexbox(row, center, $justifyContent: space-between);
   margin-bottom: 1rem;
-
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
 
   .back-button { margin-right: auto; }
   button { margin-left: 2rem; }
@@ -610,12 +293,10 @@ button {
 }
 
 .bids {
-  display: flex;
-  flex-direction: column;
+  @include flexbox(column);
   
   .header {
-    display: flex;
-    flex-direction: row;
+    @include flexbox(row);
     
     * {
       padding: .5rem 1rem;
@@ -629,8 +310,8 @@ button {
   }
 
   .bid {
-    display: flex;
-    flex-direction: row;
+    @include flexbox(row);
+
     padding: .5rem 0;
     &:not(:last-child) { border-bottom: 1px solid #F0F0F0; }
 
@@ -650,11 +331,7 @@ button {
   width: 100vw;
   height: 100vh;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-content: space-around;
+  @include flexbox(row, center, space-around, center);
 
   img {
     width: 10rem;
@@ -672,10 +349,7 @@ button {
 }
 
 .progress-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include flexbox(column, center, $justifyContent: center);
 
   padding: 2rem 0;
   width: 100%;
@@ -683,10 +357,7 @@ button {
   position: relative;
 
   .progress {
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
+    @include flexbox(column, center, $justifyContent: center);
   
     width: auto;
     height: 8rem;
