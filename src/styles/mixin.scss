@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 // utils & mixins
 
 @mixin box-shadow {
@@ -16,18 +18,18 @@
 }
 
 @mixin button-base {
-  background: #007CF0;
+  background: $color-blue;
   border-radius: 4px;
 
   color: #FFF;
 
   &:hover {
-    background-color: rgb(31, 147, 255);
+    background-color: $button-hover-color;
   }
 
   &:disabled {
-    background-color: #AAA;
-    color: #ccc;
+    background-color: $button-disabled-background;
+    color: $button-disabled-color;
   }
 }
 
@@ -47,7 +49,7 @@
 /* typography mixins */
 
 @mixin font-base(
-  $color: #000,
+  $color: $color-black,
   $fontSize: 14px,
   $fontWeight: 400,
   $lineHeight: 1.2,
@@ -61,14 +63,14 @@
 }
 
 @mixin text-caption($fontSize: 10px) {
-  @include font-base($color: #A5A6AF, $fontSize: $fontSize, $fontWeight: 700, $lineHeight: 10px, $letterSpacing: 0.05rem);
+  @include font-base($color: $color-caption, $fontSize: $fontSize, $fontWeight: 700, $lineHeight: 10px, $letterSpacing: 0.05rem);
 }
 
 @mixin text-caption-xl() {
   @include text-caption(12px);
 }
 
-@mixin text-header-normal($color: #000) {
+@mixin text-header-normal($color: $color-black) {
   @include font-base($color: $color, $fontWeight: 700);
 }
 
@@ -77,11 +79,11 @@
 }
 
 @mixin text-action-button() {
-  @include font-base(#FFF, 14px, 700);
+  @include font-base($color-white, 14px, 700);
 }
 
 @mixin text-body() {
-  @include font-base($color: #666, $lineHeight: 18px);
+  @include font-base($color: $color-text-body, $lineHeight: 18px);
 }
 
 @mixin text-base() {
