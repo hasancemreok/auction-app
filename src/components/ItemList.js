@@ -9,11 +9,15 @@ function ItemDetail(props) {
   const [queryState, setQueryState] = useState({
     search: "",
     sortBy: "0",
-    sortType: "0"
+    sortType: "0",
+    page: 0
   });
   
   useEffect(() => {
     getItems();
+
+    let updateTimer = setInterval(() => getItems(), 10000);
+    return() => clearInterval(updateTimer);
   }, []);
 
   useEffect(() => {
@@ -33,6 +37,10 @@ function ItemDetail(props) {
     setAuctionItems(newArray)
 
     setTimeout(() => setIsLoading(false), 1000);
+  }
+
+  const changePage = (_page) => {
+    setQueryState(prevState => ({...prevState, page: _page }))
   }
 
   return(
@@ -55,6 +63,13 @@ function ItemDetail(props) {
         isLoading 
         ? <Progress loadingText="Loading items" />
         : auctionItems.map((item, index) => <Item key={'item'+index} data={item} />)
+      }
+      </div>
+      <div className="pages">
+      {
+        Array.from({length: 3}).map((m, i) => {
+          <button className="page-link button" onClick={() => changePage(i)}>{i+1}</button>
+        })
       }
       </div>
     </div>

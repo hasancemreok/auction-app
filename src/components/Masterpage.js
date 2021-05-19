@@ -6,7 +6,6 @@ function MasterPage({history, children}) {
   const auth = useAuth();
   const handleLogout = () => {
     auth.logout();
-    history.push('/')
   }
 
   return(

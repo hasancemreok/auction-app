@@ -1,14 +1,19 @@
 import React from 'react';
 import  { Link } from 'react-router-dom'
 import dateParser from '../utils/dateParser'
+import brandLogo from '../assets/auction.png'
 
 function Item(props) {
   return(
     <div className="item">
-      <img />
+      <div className="imgContainer small">
+        <img src={brandLogo} />
+      </div>
       <div className="item-info">
-        <p class="item-caption">{props.data.caption}</p>
-        <div class="item-description">{props.data.description}</div>
+        <div className="texts">
+          <p class="item-caption">{props.data.caption}</p>
+          <span class="item-description">{props.data.description}</span>
+        </div>
         <div class="item-actions">
           <div class="item-countdown">
             <div class="countdown">

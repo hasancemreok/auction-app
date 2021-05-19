@@ -33,7 +33,7 @@ function App() {
           <Switch>
             <Route exact path="/"><Splash /></Route>
             <ProtectedRoute path="/items"><Home /></ProtectedRoute>
-            <ProtectedRoute path="/item/:itemId"><Detail /></ProtectedRoute>
+            <ProtectedRoute path="/item/:itemID"><Detail /></ProtectedRoute>
             <Route path="/login"><Login /></Route>
           </Switch>
       </Router>

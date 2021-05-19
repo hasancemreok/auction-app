@@ -27,6 +27,15 @@ export function useAuthContext() {
     window.localStorage.removeItem("authState");
   }
 
+  const decreaseBidAmount = () => {
+    let bidAmount = authState.user.maxAutoBidAmount;
+    bidAmount--;
+
+    let newAuthState = {...authState};
+    newAuthState.user.maxAutoBidAmount = bidAmount;
+    setAuthState(newAuthState);
+  }
+
   /*useEffect(() => {
     const authCookie = JSON.parse(window.localStorage.getItem("authState"));
     if(authCookie)
@@ -48,6 +57,7 @@ export function useAuthContext() {
   return {
     authState,
     login,
-    logout
+    logout,
+    decreaseBidAmount
   }
 }
