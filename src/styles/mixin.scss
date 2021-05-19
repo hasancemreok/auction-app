@@ -43,3 +43,47 @@
     align-content: $alignContent;
     justify-content: $justifyContent;
 }
+
+/* typography mixins */
+
+@mixin font-base(
+  $color: #000,
+  $fontSize: 14px,
+  $fontWeight: 400,
+  $lineHeight: 1.2,
+  $letterSpacing: 0
+) {
+  color: $color;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  line-height: $lineHeight;
+  letter-spacing: $letterSpacing;
+}
+
+@mixin text-caption($fontSize: 10px) {
+  @include font-base($color: #A5A6AF, $fontSize: $fontSize, $fontWeight: 700, $lineHeight: 10px, $letterSpacing: 0.05rem);
+}
+
+@mixin text-caption-xl() {
+  @include text-caption(12px);
+}
+
+@mixin text-header-normal($color: #000) {
+  @include font-base($color: $color, $fontWeight: 700);
+}
+
+@mixin text-header-xl() {
+  @include font-base($fontSize: 18px, $lineHeight: 1, $fontWeight: 700);
+}
+
+@mixin text-action-button() {
+  @include font-base(#FFF, 14px, 700);
+}
+
+@mixin text-body() {
+  @include font-base($color: #666, $lineHeight: 18px);
+}
+
+@mixin text-base() {
+  @include font-base();
+}
